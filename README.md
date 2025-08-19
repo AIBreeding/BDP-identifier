@@ -74,4 +74,4 @@ ________________________________________
 •	PPRD (Yu et al., 2022) for public RNA-seq data.  
 •	LightGBM (Ke et al., 2017) for efficient gradient boosting.  
 ________________________________________
-License: MIT License (see LICENSE file for details).
+License: MIT License.
