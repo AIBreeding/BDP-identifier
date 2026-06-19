@@ -23,7 +23,7 @@ The manuscript uses genome assemblies and gene annotations from **Ensembl Plants
 |---|---|---|---|
 | Genome assembly | *A. thaliana*, *O. sativa*, *Z. mays*, *T. aestivum* | [Ensembl Plants release 55 FTP](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/fasta/) | One primary/toplevel DNA FASTA per species (`*.dna.toplevel.fa.gz` or equivalent) |
 | Gene annotation | Same four species | [Ensembl Plants release 55 GFF3 FTP](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/gff3/) | One matching GFF3 annotation per species (`*.gff3.gz`) |
-| Public RNA-seq expression | Same four species | [Plant Public RNA-seq Database (PPRD)](http://ipf.sustech.edu.cn/pub/plantrna/) | Gene-by-sample expression matrix for each species |
+| Public RNA-seq expression | Same four species | [Plant Public RNA-seq Database (PPRD)](http://116.205.136.219/) | Gene-by-sample expression matrix for each species |
 
 Species-specific Ensembl Plants release 55 directories:
 
