@@ -2,7 +2,50 @@
 
 Identifying plant bidirectional promoter (BDP) candidates, quantifying their activity, generating sequence features, training prediction models, and relating Evo2 sparse-autoencoder (SAE) features to known regulatory signals.
 
-The workflow follows the accompanying manuscript and supports four species: *Arabidopsis thaliana*, *Oryza sativa* (rice), *Zea mays* (maize), and *Triticum aestivum* (wheat).
+## What this workflow does
+
+This pipeline starts from a genome assembly, a GFF3 gene annotation, and public RNA-seq expression profiles. It produces a reproducible set of candidate bidirectional promoters (BDPs), assigns each candidate a quantitative activity proxy, extracts centered promoter sequences, constructs multiple sequence representations, and evaluates how well BDP activity can be predicted within and across species.
+
+The main outputs are:
+
+- genomic coordinates of adjacent divergent gene pairs and a filtered high-confidence BDP set;
+- `cor_log`, the Pearson correlation between log10-transformed expression profiles of the two flanking genes, used as the BDP activity proxy;
+- 128-, 256-, 512-, and 1,024-bp BDP-centered DNA sequences;
+- Evo2 embeddings, k-mer frequencies, TFBS features, and raw-sequence CNN inputs;
+- LightGBM/CNN benchmarking results and one-, two-, and three-species transfer results; and
+- position-resolved Evo2-SAE, TFBS, and nucleosome-affinity delta profiles for comparing high- and low-activity BDPs.
+
+## Data to download
+
+The manuscript uses genome assemblies and gene annotations from **Ensembl Plants release 55** and transcriptome data from the **Plant Public RNA-seq Database (PPRD)**.
+
+| Data | Species | Source and download location | Files needed |
+|---|---|---|---|
+| Genome assembly | *A. thaliana*, *O. sativa*, *Z. mays*, *T. aestivum* | [Ensembl Plants release 55 FTP](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/fasta/) | One primary/toplevel DNA FASTA per species (`*.dna.toplevel.fa.gz` or equivalent) |
+| Gene annotation | Same four species | [Ensembl Plants release 55 GFF3 FTP](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/gff3/) | One matching GFF3 annotation per species (`*.gff3.gz`) |
+| Public RNA-seq expression | Same four species | [Plant Public RNA-seq Database (PPRD)](http://ipf.sustech.edu.cn/pub/plantrna/) | Gene-by-sample expression matrix for each species |
+
+Species-specific Ensembl Plants release 55 directories:
+
+- [Arabidopsis thaliana FASTA](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/fasta/arabidopsis_thaliana/dna/) and [GFF3](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/gff3/arabidopsis_thaliana/)
+- [Oryza sativa FASTA](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/fasta/oryza_sativa/dna/) and [GFF3](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/gff3/oryza_sativa/)
+- [Zea mays FASTA](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/fasta/zea_mays/dna/) and [GFF3](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/gff3/zea_mays/)
+- [Triticum aestivum FASTA](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/fasta/triticum_aestivum/dna/) and [GFF3](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/gff3/triticum_aestivum/)
+
+The manuscript reports 28,164 Arabidopsis, 19,664 maize, 11,726 rice, and 5,816 wheat RNA-seq samples in the full PPRD datasets. Download the complete species expression matrices rather than tissue-restricted subsets. Before step 2, arrange each matrix as one gene per row and one RNA-seq sample per column, with the gene identifier in `gene_id` (or pass its actual name with `--gene-column`). Gene identifiers must match the corresponding GFF3 annotation; the provided command uppercases rice identifiers to reproduce the source analysis.
+
+Suggested local layout:
+
+```text
+data/
+  genomes/       # four genome FASTA files
+  gff/           # four matching GFF3 files
+  pprd/          # four gene-by-sample expression tables
+  motifs/        # JASPAR plant motif file for TFBS analysis
+  models/        # Evo2 and SAE weights (not tracked by Git)
+```
+
+The FTP and PPRD URLs above are the source locations stated or implied by the manuscript. Archive mirrors and filenames can change; retain the release number and record the exact downloaded filenames/checksums for reproducibility.
 
 ## Workflow
 
@@ -168,19 +211,20 @@ pytest -q
 
 The tests cover FASTA identifiers and balanced extreme-activity labels. Full Evo2, SAE, NuPoP, and model runs require the external datasets and weights described above.
 
+## Data and code availability
+
+As stated in the manuscript, transcriptome datasets used to calculate BDP activity were obtained from PPRD. Genome assemblies and gene annotations for the four focal species were obtained from Ensembl Plants release 55. Processed high-confidence BDP candidate tables should be deposited with this repository. The manuscript identifies the code repository as [AIBreeding/BDP-identifier](https://github.com/AIBreeding/BDP-identifier).
+
+## Citation
+
+Please cite the accompanying manuscript when using this workflow:
+
+> *Genomic Language Models Decode Bidirectional Promoter Activity and Reveal Conserved Regulatory Patterns Across Plant Species.* Manuscript in preparation.
+
+The supplied Word document does not contain a complete author list or bibliographic publication details. Replace the citation above with the final author list, journal, year, DOI, and version before public release.
 ________________________________________
-#### 📝 Cite This Work
-If you use this code or data, please cite our paper:  
-Genomic language model-driven decoding of gene regulation: a case-study on predicting bidirectional promoter activity across plant species
-[DOI: XXXXXXX]
-________________________________________
-#### 📧 Contact
+## 📧 Contact
 For questions or collaboration requests, contact:  
 **Huihui Li - lihuihui@caas.cn**
-________________________________________
-#### 🌟 Acknowledgments
-•	Evo2 (Benegas et al., 2025) for the genomic language model.  
-•	PPRD (Yu et al., 2022) for public RNA-seq data.  
-•	LightGBM (Ke et al., 2017) for efficient gradient boosting.  
 ________________________________________
 License: MIT License.
