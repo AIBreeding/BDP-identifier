@@ -1,0 +1,2 @@
+# Install the Evo2 package and model weights following the upstream Evo2 instructions.
+evo2

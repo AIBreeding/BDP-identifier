@@ -1,0 +1,5 @@
+species	pairs	activity
+Arabidopsis	results/01_candidates/arabidopsis.tsv	results/02_activity/arabidopsis.tsv
+Rice	results/01_candidates/rice.tsv	results/02_activity/rice.tsv
+Maize	results/01_candidates/maize.tsv	results/02_activity/maize.tsv
+Wheat	results/01_candidates/wheat.tsv	results/02_activity/wheat.tsv

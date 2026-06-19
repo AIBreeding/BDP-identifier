@@ -1,0 +1,5 @@
+species	fasta
+Arabidopsis	data/genomes/Arabidopsis.fa
+Rice	data/genomes/Rice.fa
+Maize	data/genomes/Maize.fa
+Wheat	data/genomes/Wheat.fa
