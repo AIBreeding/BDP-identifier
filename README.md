@@ -219,9 +219,8 @@ As stated in the manuscript, transcriptome datasets used to calculate BDP activi
 
 Please cite the accompanying manuscript when using this workflow:
 
-> *Genomic Language Models Decode Bidirectional Promoter Activity and Reveal Conserved Regulatory Patterns Across Plant Species.* Manuscript in preparation.
+> *Genomic Language Models Decode Bidirectional Promoter Activity and Reveal Conserved Regulatory Patterns Across Plant Species.* Nat. Commun.
 
-The supplied Word document does not contain a complete author list or bibliographic publication details. Replace the citation above with the final author list, journal, year, DOI, and version before public release.
 ________________________________________
 ## 📧 Contact
 For questions or collaboration requests, contact:  
